@@ -1,11 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// import{ref} from 'vue'
+//  const bbn = ref(false);
+
+
+</script>
 
 <template>
   <header>
     <div class="header-box px-20 d-flex flex-row align-items-center">
-      <div class="input d-flex flex-row flex-fill align-items-center">
+      <div class="input d-flex flex-row flex-fill align-items-center" >
         <a href="#" class="block-header d-flex flex-row ">
-                <img src="../assets/icons/collapse.png" alt="">
+                <img src="../assets/icons/collapse.png" alt="" > 
                 <h3>Missions</h3>
         </a>
         <div class="input-control">
@@ -85,6 +90,18 @@ input{
  .date{
    
     font-size:16px;
+    padding: 2px 5px 2px 10px;
+    border-radius: 4px;
+    
+    border:#f9f9f9 solid 2px;
+    color: var( --text-color);
+    background-color: #f4f4f4;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1)
+    
+ }
+ .date1{
+   
+    font-size:30px;
     padding: 2px 5px 2px 10px;
     border-radius: 4px;
     

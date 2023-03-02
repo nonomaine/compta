@@ -1,4 +1,4 @@
-import type { ProductInterface } from "@/interfaces/Product.interface";
+
 
 export default [
     {

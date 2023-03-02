@@ -5,7 +5,9 @@ import corps from './components/corps.vue';
 import data from './data/product';
 import { reactive } from 'vue';
 import type{ ProductInterface } from './interfaces/Product.interface';
-import {computed} from'vue'
+import {computed, ref} from'vue'
+
+
 
 const state = reactive<{
   products: ProductInterface[];
@@ -14,6 +16,8 @@ const state = reactive<{
   products: data,
  
 });
+
+
   
 function checkBoxYellow(productColor: string) : void{
   const product = state.products.find((product) => product.color === productColor);
@@ -23,9 +27,18 @@ function checkBoxYellow(productColor: string) : void{
   }
    
 }
-// const boxYellow = computed(() =>
-//   state.products.filter(product => product.color === 'yellow')
-// );
+
+function changeClass(){
+  document.body.classList.toggle('app-containerReduc');
+}
+
+
+
+const boxYellow = computed(() =>
+  state.products.filter(product => product.color === 'yellow')
+);
+
+
 
 
 
@@ -33,12 +46,15 @@ function checkBoxYellow(productColor: string) : void{
 </script>
 
 <template>
-  <div class="app-container">
-    <Theheader class="header"/>
-    <Thenav class="nav"/>
+  <div class="app-container" >
+    <Theheader class="header" @change-class="changeClass"/>
+    <Thenav class="nav" />
     <corps :products="state.products" @check-box-yellow="checkBoxYellow" class="corps"/>
+    
+    
    
   </div>
+  
 </template>
 
 <style lang = "scss">
@@ -46,22 +62,31 @@ function checkBoxYellow(productColor: string) : void{
 @import './assets/debug.scss';
 
 .app-container {
+  width : 100%;
   min-height: 100vh;
   display: grid;
-  grid-template-areas: 'header header' 'nav shop' ;
+  grid-template-areas: 'header header' 'nav corps' ;
   grid-template-columns: 15% 85%;
   grid-template-rows: 90px auto ;
 }
+// .app-containerReduc {
+//   width : 100%;
+//   min-height: 100vh;
+//   display: grid;
+//   grid-template-areas: 'header header' 'nav corps' ;
+//   grid-template-columns: 5% 95%;
+//   grid-template-rows: 90px auto ;
+// }
+
 .header {
   grid-area: header;
 }
-.shop {
+.nav {
   grid-area: nav;
 }
-.cart {
+.corps {
   grid-area: corps;
 }
-.footer {
-  grid-area: footer;
-}
+
+
 </style>

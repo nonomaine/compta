@@ -3,19 +3,45 @@ import type { ProductInterface } from '../interfaces/Product.interface';
 import calendarList from './calendar/calendarList.vue'
 import {computed, ref} from'vue'
 import product from '@/data/product';
+import modal from './modal/ModalPage.vue'
+
+
 
  defineProps<{
   products: ProductInterface[];
   
 }>();
 
-const emit = defineEmits<{
-  (e: 'checkBoxYellow', productColor: string): void;
-}>();
+ const emit = defineEmits<{
+   (e: 'checkBoxYellow', productColor: string): void;
+ }>();
 
+ 
+const open =ref(false);
+
+const openCloseText=computed(() => 
+open ? 'Nouvelle Mission' : 'Fermer la modal')
+
+
+
+const show =ref(false);
+const showGreen =ref(false);
+const showYellow =ref(false);
+const showBlue =ref(false);
+
+const allBox = computed(() =>
+  product.filter(product => product)
+);
+const boxGreen = computed(() =>
+  product.filter(product => product.color === 'green')
+);
 const boxYellow = computed(() =>
   product.filter(product => product.color === 'yellow')
 );
+const boxBlue = computed(() =>
+  product.filter(product => product.color === 'bleu')
+);
+
 
 
 </script>
@@ -23,10 +49,10 @@ const boxYellow = computed(() =>
 <template>
   
     <div class="container-block d-flex flex-column">
-
+     
        <div class="container-btn d-flex flex-row align-items-center mr-30" >
-         <button class="btn btn-primary d-flex flex-row align-items-center">
-          <img class="icon" src="../assets/icons/plus.png " width="15"  alt="">Ajouter une mission
+         <button @click="open = !open" class="btn btn-primary d-flex flex-row align-items-center">
+          <img class="icon" src="../assets/icons/plus.png " width="15"  alt="">{{ openCloseText }}
          </button>
        </div>
 
@@ -58,25 +84,31 @@ const boxYellow = computed(() =>
             <div class="control-mission d-flex flex-column ">
               <h4>Priorité Taches</h4>
               <div class="d-flex flex-row align-items-center mt-30">
-                <input class="checkbox" type="checkbox"  name="scales" >
+                <input @click="show=!show" class="checkbox" type="checkbox"  name="scales" >
                 <label class="p-10" for="scales">Toutes</label>
               </div>
               <div class="d-flex flex-row align-items-center mt-30">
-                <input @click="emit('checkBoxYellow', product.color)" class="checkbox checkbox-basse" type="checkbox"  name="scales">
+                <input @click="showGreen=!showGreen" class="checkbox checkbox-basse" type="checkbox"  name="scales">
                 <label class="p-10" for="scales">Basses</label>
               </div>
               <div class=" d-flex flex-row align-items-center mt-30">
-                <input class="checkbox checkbox-normal"  type="checkbox"  name="scales"  >
+                <input @click="showYellow=!showYellow" class="checkbox checkbox-normal"  type="checkbox"  name="scales"  >
                 <label class="p-10" for="scales">Normales </label>
               </div>
               <div class=" d-flex flex-row align-items-center mt-30">
-                <input class="checkbox checkbox-haute"  type="checkbox"  name="scales">
+                <input @click="showBlue=!showBlue" class="checkbox checkbox-haute"  type="checkbox"  name="scales">
                 <label class="p-10" for="scales">Hautes</label>
               </div> 
             </div>
-            <div class="list-mission ">
+            <div class="list-mission">
 
-              <calendarList :products="products" @check-box-yellow="emit('checkBoxYellow', $event)" />
+              <calendarList v-if="show" :products="allBox"  />
+              <calendarList v-else-if="showGreen" :products="boxGreen"  />
+              <calendarList v-else-if="showYellow" :products="boxYellow"  />
+              <calendarList v-else-if="showBlue" :products="boxBlue"  />
+              <calendarList v-else :products="products"/>
+              
+              
               
 
 
@@ -86,7 +118,8 @@ const boxYellow = computed(() =>
       </div>
 
     </div>
-  
+    <modal v-show="open" @close-modal="open = false"/>
+
 </template>
 
 <style lang="scss" scoped>
@@ -105,7 +138,7 @@ const boxYellow = computed(() =>
 .container-calendrier{
   width:85%;
   background: white;
-  height: 85%;
+  height: 1200px;
   border-radius: 30px;
   border: var(--border);
   box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, .1);

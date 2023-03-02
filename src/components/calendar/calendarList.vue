@@ -11,7 +11,7 @@ defineProps<{
 
 
 const emit = defineEmits<{
-  (e: 'checkBoxYellow', productColor:string): void;
+   (e: 'checkBoxYellow', productColor:string): void;
 }>();
 
 </script>

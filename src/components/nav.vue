@@ -1,17 +1,27 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import {ref} from 'vue'
+
+// function changeClass(){
+//   document.body.classList.toggle('side');
+// }
+
+// const bbn = ref(false);
+</script>
 
 <template>
   <div>
-    <nav class="side-nav">
+    <nav class="side-nav"  >
+        <!-- <img class="btn-box" src="../assets/icons/collapse.png" alt="" >  -->
             <div class="nav-logo">
+                
                 <div class="logo">
-                    <img src="../assets/icons/hombre.png" span class="logo-1" alt="">
+                    <img src="../assets/icons/hombre.png" span class="logo-1" alt="" >
                     
                 </div>  
             </div>
 
-            <a href="#" class="block-link">
-                <img src="../assets/icons/dashboard.png" alt="">
+            <a href="#" class="block-link" >
+                <img src="../assets/icons/dashboard.png" alt="" >
                 <span class="nav-links">Dashboard</span>
                 
             </a>
@@ -54,6 +64,23 @@
     background: linear-gradient(to right, var(--primary-1), #14819c);
     color:white;
     
+}
+.side{
+    position:relative; /*position fixed tjts par rapport au body*/
+    display: flex; 
+    flex-direction: column;
+    width:30%;
+    height: 100%;
+    border-right:1px solid #bdbdbd;
+    background: linear-gradient(to right, var(--primary-1), #14819c);
+    color:white;
+    
+}
+.btn-box{
+    width: 25px;
+   
+    top: 50px;
+    left:85%;
 }
  .nav-logo{
     width:100%;
